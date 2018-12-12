@@ -7,7 +7,7 @@ import numpy as np
 def threshold_demo(image):
     gray = cv.cvtColor(image, cv.COLOR_RGB2GRAY)  # 把输入图像灰度化
     # 直接阈值化是对输入的单通道矩阵逐像素进行阈值分割。
-    ret, binary = cv.threshold(gray, 0, 255, cv.THRESH_BINARY | cv.THRESH_TRIANGLE)
+    ret, binary = cv.threshold(gray, 0, 255, cv.THRESH_BINARY | cv.THRESH_TRIANGLE)# otsu
     print("threshold value %s"%ret)
     cv.namedWindow("binary0", cv.WINDOW_NORMAL)
     cv.imshow("binary0", binary)
@@ -36,13 +36,28 @@ def custom_threshold(image):
     cv.imshow("binary2", binary)
     return binary
 
+def big_image_binary(image):
+    print(image.shape)
+    cw = 256
+    ch = 256
+    h, w = image.shape[:2]
+    gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+    for hs in range(0, h, ch):
+        for ws in range(0, w, cw):
+            roi = gray[hs : hs + ch, ws : ws + cw]
+            dst = cv.adaptiveThreshold(roi, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 127, 20)
+            gray[hs:hs+ch, ws:ws+cw] = dst
+            print(np.std(dst), np.mean(dst))
+    cv.imwrite("big_image.jpg", gray)
 
-src = cv.imread('test.png')
-cv.namedWindow('input_image', cv.WINDOW_NORMAL)  # 设置为WINDOW_NORMAL可以任意缩放
+src = cv.imread('bigImage.jpg') #view.png
+cv.namedWindow('input_image', cv.WINDOW_AUTOSIZE)  # 设置为WINDOW_NORMAL可以任意缩放
 cv.imshow('input_image', src)
-threshold_demo(src)
-local_threshold(src)
-black = custom_threshold(src)
-cv.imwrite("binary.png", black)
+# threshold_demo(src)
+# local_threshold(src)
+# black = custom_threshold(src)
+# cv.imwrite("binary.png", black)
+
+big_image_binary(src)
 cv.waitKey(0)
 cv.destroyAllWindows()

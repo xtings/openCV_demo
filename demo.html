@@ -1,0 +1,34 @@
+<!DOCTYPE html>  
+<html>  
+  <head>  
+    <meta charset="utf-8">  
+	<script language="javascript">     
+	function exec1(command) 
+	{     
+	  var ws = new ActiveXObject("WScript.Shell");      
+	  ws.run(command);
+	}     
+	</script>   
+  </head>  
+  
+<body>
+	<div id="header">
+	<h1>简单调用python</h1>
+	</div>
+ 
+	<div id="nav">
+		简单调用python         
+		<a href="demo.py" target="show"> 代码 </a>    <!--显示源代码在这里--> 
+		<input type="button" value="运行 python" onclick="exec1('python')" />  <!--调用python在这里--> 
+		<br/> 
+ 
+	</div>
+ 
+	<div id="section"> 	
+		<h2>代码框 </h2>
+		<iframe name="show" id="show" width="1100" height="466"/>   		 
+	</div>
+ 
+</body> 
+</html> 
+

@@ -1,0 +1,9 @@
+exec1('python demo.py')
+# 括号内的意义是 用 python 来执行 hello.py 这个文件，！注意python是已经添加到环境变量了的。
+# 执行python程序一般有两个exe方法，一个是直接的python，另一种是pythonw，两者的区别是：用python执行会先打开一个命令行的黑窗，而pythonw不会弹出黑窗（比如你要执行一个输出的程序，就没法显示出来了）
+ 
+# or use this 
+ 
+exec1('cmd')
+# 括号内的意义是 直接执行 cmd 这个可执行文件。同理你把python文件打包成exe文件也是可以直接采用这种方法的。
+
